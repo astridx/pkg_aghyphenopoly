@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="1.0" method="upgrade">
+	<name>pkg_aghyphenopoly</name>
+	<packagename>aghyphenopoly</packagename>
+	<creationDate>##DATE##</creationDate>
+	<packager>Astrid Günther</packager>
+	<copyright>(C) ##YEAR## Astrid Günther. All rights reserved.</copyright>
+	<packageremail>info@astrid-guenther.de</packageremail>
+	<packagerurl>www.astrid-guenther.de</packagerurl>
+	<author>Astrid Günther</author>
+	<authorEmail>info@astrid-guenther.de</authorEmail>
+	<authorUrl>www.astrid-guenther.de</authorUrl>
+	<version>##VERSION##</version>
+	<license>GNU General Public License version 2 or later</license>
+	<description>PKG_AGHYPHENOPOLY_XML_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+	<files>
+		<!-- The id for each extension is the element stored in the DB -->
+		<file type="plugin" id="aghyphenopoly" group="content">plg_content_aghyphenopoly.zip</file>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.pkg_aghyphenopoly.sys.ini</language>
+	</languages>
+	<updateservers>
+		<!-- Note: No spaces or linebreaks allowed between the server tags -->
+		<server type="extension" name="Aggpxtrack Update Site">https://raw.githubusercontent.com/astridx/pkg_aghyphenopoly/master/aghyphenopoly-update.xml</server>
+	</updateservers>
+</extension>
