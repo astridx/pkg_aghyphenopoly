@@ -16,13 +16,13 @@
 	<scriptfile>script.php</scriptfile>
 	<files>
 		<!-- The id for each extension is the element stored in the DB -->
-		<file type="plugin" id="aghyphenopoly" group="content">plg_content_aghyphenopoly.zip</file>
+		<file type="plugin" id="aghyphenopoly" group="system">plg_system_aghyphenopoly.zip</file>
 	</files>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.pkg_aghyphenopoly.sys.ini</language>
 	</languages>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="extension" name="Aggpxtrack Update Site">https://raw.githubusercontent.com/astridx/pkg_aghyphenopoly/master/aghyphenopoly-update.xml</server>
+		<server type="extension" name="Hyphenopoly Update Site">https://raw.githubusercontent.com/astridx/pkg_aghyphenopoly/master/aghyphenopoly-update.xml</server>
 	</updateservers>
 </extension>

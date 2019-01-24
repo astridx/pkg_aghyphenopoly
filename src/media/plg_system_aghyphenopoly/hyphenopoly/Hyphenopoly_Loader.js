@@ -6,23 +6,6 @@
  * Released under the MIT license
  * http://mnater.github.io/Hyphenopoly/LICENSE
  */
-      var Hyphenopoly = {
-            require: {
-                "de-de": "Silbentrennungsalgorithmus"
-            },
-            fallbacks: {
-                    "de-de": "de"
-                },            
-            paths: {
-                patterndir: "./patterns/",
-                maindir: "./"
-            },            
-            setup: {
-                selectors: {
-                    ".hyphenopoly": {}
-                }
-            }
-        };
 
 (function H9YL() {
     "use strict";

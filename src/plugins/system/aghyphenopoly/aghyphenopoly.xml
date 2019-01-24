@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+    <name>PLG_SYSTEM_AGHYPHENOPOLY</name>
+    <author>Astrid Günther</author>
+    <creationDate>##DATE##</creationDate>
+    <copyright>(C) ##YEAR## Astrid Günther. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>info@astrid-guenther.de</authorEmail>
+    <authorUrl>www.astrid-guenther.de</authorUrl>
+    <version>##VERSION##</version>
+    <description>PLG_SYSTEM_AGHYPHENOPOLY_DESC</description>
+    <files>
+            ##FILES##
+    </files>
+    <!-- Media files -->
+    <media 
+        folder="media/plg_system_aghyphenopoly" 
+        destination="plg_system_aghyphenopoly">
+            ##MEDIA_FILES##
+    </media>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <!--
+                <field 
+                    name="classname" 
+                    type="text" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_CLASSNAME_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_CLASSNAME_DESC" 
+                />
+                <field 
+                    name="donthyphenateclassname" 
+                    type="text" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_DONTAGHPHENATECLASSNAME_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_DONTAGHPHENATECLASSNAME_DESC" 
+                />
+                <field 
+                    name="minwordlength" 
+                    type="text" 
+                    filter="integer" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_MINWORDLENGTH_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_MINWORDLENGTH_DESC" 
+                />
+                <field 
+                    name="hyphenchar" 
+                    type="text" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_AGHPHENCHAR_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_AGHPHENCHAR_DESC" 
+                />
+                <field 
+                    name="urlhyphenchar" 
+                    type="text" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_URLAGHPHENCHAR_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_URLAGHPHENCHAR_DESC" 
+                />
+                <field 
+                    name="togglebox" 
+                    type="textarea" 
+                    rows="5" 
+                    cols="25" 
+                    filter="raw" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_TOGGLEBOX_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_TOGGLEBOX_DESC" 
+                />
+                <field 
+                    name="displaytogglebox" 
+                    type="list" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_DISPLAYTOGGLEBOX_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_DISPLAYTOGGLEBOX_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="remoteloading" 
+                    type="list" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_REMOTELOADING_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_REMOTELOADING_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="enablecache" 
+                    type="list" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_ENABLECACHE_LABEL" description="PLG_SYSTEM_AGHYPHENOPOLY_ENABLECACHE_DESC">
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="enablereducedpatternset" type="list" default="" label="PLG_SYSTEM_AGHYPHENOPOLY_ENABLEREDUCEDPATTERNSET_LABEL" description="PLG_SYSTEM_AGHYPHENOPOLY_ENABLEREDUCEDPATTERNSET_DESC">
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="onhyphenationdonecallback" 
+                    type="textarea" 
+                    rows="5" 
+                    cols="25" 
+                    filter="raw" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_ONAGHPHENATIONDONECALLBACK_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_ONAGHPHENATIONDONECALLBACK_DESC" 
+                />
+                <field 
+                    name="onerrorhandler" 
+                    type="textarea" 
+                    rows="5" 
+                    cols="25" 
+                    filter="raw" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_ONERRORHANDLER_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_ONERRORHANDLER_DESC" 
+                />
+                <field 
+                    name="intermediatestate" 
+                    type="list" default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_INTERMEDIATESTATE_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_INTERMEDIATESTATE_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="hidden">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_HIDDEN</option>
+                    <option value="visible">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_VISIBLE</option>
+                </field>
+                <field 
+                    name="selectorfunction" 
+                    type="textarea" 
+                    rows="5" cols="25" 
+                    filter="raw" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_SELECTORFUNCTION_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_SELECTORFUNCTION_DESC" 
+                />
+                <field 
+                    name="safecopy" type="list" 
+                    default="" label="PLG_SYSTEM_AGHYPHENOPOLY_SAFECOPY_LABEL" description="PLG_SYSTEM_AGHYPHENOPOLY_SAFECOPY_DESC">
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="doframes" type="list" default="" label="PLG_SYSTEM_AGHYPHENOPOLY_DOFRAMES_LABEL" description="PLG_SYSTEM_AGHYPHENOPOLY_DOFRAMES_DESC">
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="storagetype" type="list" default="" label="PLG_SYSTEM_AGHYPHENOPOLY_STORAGETYPE_LABEL" description="PLG_SYSTEM_AGHYPHENOPOLY_STORAGETYPE_DESC">
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="local">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_LOCAL</option>
+                    <option value="session">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_SESSION</option>
+                    <option value="none">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_NONE</option>
+                </field>
+                <field 
+                    name="orphancontrol" type="list" default="" 
+                       label="PLG_SYSTEM_AGHYPHENOPOLY_ORPHANCONTROL_LABEL" description="PLG_SYSTEM_AGHYPHENOPOLY_ORPHANCONTROL_DESC">
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="1">PLG_SYSTEM_AGHYPHENOPOLY_ORPHANCONTROL_OPTION_1</option>
+                    <option value="2">PLG_SYSTEM_AGHYPHENOPOLY_ORPHANCONTROL_OPTION_2</option>
+                    <option value="3">PLG_SYSTEM_AGHYPHENOPOLY_ORPHANCONTROL_OPTION_3</option>
+                </field>
+                <field 
+                    name="dohyphenation" 
+                       type="list" 
+                       default="" 
+                       label="PLG_SYSTEM_AGHYPHENOPOLY_DOAGHPHENATION_LABEL" 
+                       description="PLG_SYSTEM_AGHYPHENOPOLY_DOAGHPHENATION_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="persistentconfig" 
+                       type="list" 
+                       default="" 
+                       label="PLG_SYSTEM_AGHYPHENOPOLY_PERSISTENTCONFIG_LABEL" 
+                       description="PLG_SYSTEM_AGHYPHENOPOLY_PERSISTENTCONFIG_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="defaultlanguage" type="text" 
+                       default="" 
+                       label="PLG_SYSTEM_AGHYPHENOPOLY_DEFAULTLANGUAGE_LABEL" 
+                       description="PLG_SYSTEM_AGHYPHENOPOLY_DEFAULTLANGUAGE_DESC" 
+                />
+                <field 
+                    name="useCSS3hyphenation" 
+                       type="list" 
+                       default="" 
+                       label="PLG_SYSTEM_AGHYPHENOPOLY_USECSS3AGHPHENATION_LABEL" 
+                       description="PLG_SYSTEM_AGHYPHENOPOLY_USECSS3AGHPHENATION_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="true">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_ENABLED</option>
+                    <option value="false">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DISABLED</option>
+                </field>
+                <field 
+                    name="unhide" 
+                    type="list" 
+                    default="" 
+                    label="PLG_SYSTEM_AGHYPHENOPOLY_UNHIDE_LABEL" 
+                    description="PLG_SYSTEM_AGHYPHENOPOLY_UNHIDE_DESC"
+                >
+                    <option value="">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_DEFAULT</option>
+                    <option value="wait">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_WAIT</option>
+                    <option value="progressive">PLG_SYSTEM_AGHYPHENOPOLY_OPTION_PROGRESSIVE</option>
+                </field> -->
+            </fieldset>
+        </fields>
+    </config>
+</extension>
