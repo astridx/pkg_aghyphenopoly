@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+
+	<field 
+            name="selectorname" 
+            type="text" 
+            default=".hyphenate" 
+            filter="string"
+            label="PLG_SYSTEM_AGHYPHENOPLY_SELECTOR"
+            description="" 
+        />
+
+	<field 
+            name="compound" 
+            type="list" 
+            default="all"
+            label="PLG_SYSTEM_AGHYPHENOPLY_COMPOUND"
+            description=""
+        >
+		<option value="auto">auto</option>
+		<option value="hyphen">hyphen</option>
+		<option value="all">all</option>
+	</field>
+
+	<field 
+            name="hyphen" 
+            type="text" 
+            default="\u00AD" 
+            filter="string"
+            label="PLG_SYSTEM_AGHYPHENOPLY_HYPHEN"
+            description="" 
+        />
+
+        <field 
+            name="minWordLength" 
+            type="integer" 
+            default="6" 
+            label="PLG_SYSTEM_AGHYPHENOPLY_MINWORDLENGHTH" 
+            description="" 
+            first="1" 
+            last="20" 
+            step="1" 
+        />
+
+        <field 
+            name="leftmin" 
+            type="integer" 
+            default="3" 
+            label="PLG_SYSTEM_AGHYPHENOPLY_LEFTMIN" 
+            description="" 
+            first="1" 
+            last="10" 
+            step="1" 
+        />
+
+        <field 
+            name="rightmin" 
+            type="integer" 
+            default="3" 
+            label="PLG_SYSTEM_AGHYPHENOPLY_RIGHTMIN" 
+            description="" 
+            first="1" 
+            last="10" 
+            step="1" 
+        />
+
+	<field 
+            name="orphanControl" 
+            type="list" 
+            default="1"
+            label="PLG_SYSTEM_AGHYPHENOPLY_ORPHANCONTROL"
+            description=""
+        >
+		<option value="1">allow orphans</option>
+		<option value="2">don't hyphenate the last word of an element</option>
+		<option value="3">don't hyphenate the last word of an element and replace the space before with a no-breaking space</option>
+	</field>
+        
+        <field 
+            name="active" 
+            type="list" 
+            default="0"
+            label="PLG_SYSTEM_AGHYPHENOPLY_ACTIVE"
+            description=""
+        >
+		<option value="0">JNO</option>
+		<option value="1">JYES</option>
+	</field>
+</form>

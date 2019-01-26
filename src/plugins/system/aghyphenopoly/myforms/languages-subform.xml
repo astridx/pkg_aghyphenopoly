@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<field 
+            name="lang" 
+            type="filelist" 
+            directory="media/plg_system_aghyphenopoly/hyphenopoly/patterns/"
+            stripext="1" 
+            hide_default="1" 
+            filter="\.hpb$" 
+            multiple="false"
+            label="PLG_SYSTEM_AGHYPHENOPLY_LANG"
+            description="" 
+        />
+
+	<field 
+            name="langtext" 
+            type="text" 
+            default="" 
+            filter="string"
+            label="PLG_SYSTEM_AGHYPHENOPLY_LANGTEXT"
+            description="" 
+        />
+
+	<field 
+            name="active" 
+            type="list" 
+            default="0"
+            label="PLG_SYSTEM_AGHYPHENOPLY_ACTIVE"
+            description=""
+        >
+		<option value="0">JNO</option>
+		<option value="1">JYES</option>
+	</field>
+</form>
