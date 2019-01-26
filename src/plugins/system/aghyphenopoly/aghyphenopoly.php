@@ -191,7 +191,7 @@ class PlgSystemAghyphenopoly extends JPlugin
 		JFactory::getDocument()->addScript($file);
 
 		/*JFactory::getDocument()->addStyleDeclaration('	
-		html {
+		body {
 			hyphens: auto;
 			-ms-hyphens: auto;
 			-moz-hyphens: auto;
