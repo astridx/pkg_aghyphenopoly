@@ -183,10 +183,20 @@
             <fieldset 
                 name="attribution" 
                 label="Attribution">
+
                 <field 
                     type="spacer" 
                     name="spacerthanks" 
                     label="PLG_AGHYPHENOPOLY_SPACERTHANKS" 
+                />
+
+                <field 
+                    name="oldjs" 
+                    type="hidden"
+                    default="" 
+                    filter="string"
+                    label=""
+                    description="" 
                 />
             </fieldset>
         </fields>

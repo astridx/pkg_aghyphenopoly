@@ -17,8 +17,36 @@ defined('_JEXEC') or die;
  */
 class PlgSystemAghyphenopoly extends JPlugin
 {
+	/**
+	 * Application object.
+	 *
+	 * @var    JApplicationCms
+	 * @since  3.9.0
+	 */
 	protected $app;
 
+	/**
+	 * Database object.
+	 *
+	 * @var    JDatabaseDriver
+	 * @since  3.9.0
+	 */
+	protected $db;
+
+	/**
+	 * Load plugin language file automatically so that it can be used inside component
+	 *
+	 * @var    boolean
+	 * @since  3.9.0
+	 */
+	protected $autoloadLanguage = true;
+
+	/**
+	 * Determines if we need to execute
+	 *
+	 * @var    boolean
+	 * @since  3.9.0
+	 */
 	protected $execute = 1;
 
 	/**
@@ -31,7 +59,6 @@ class PlgSystemAghyphenopoly extends JPlugin
 	 */
 	public function __construct(&$subject, $config = array())
 	{
-
 		parent::__construct($subject, $config);
 
 		if (JFactory::getDocument()->getType() !== 'html' 
@@ -53,10 +80,8 @@ class PlgSystemAghyphenopoly extends JPlugin
 	 */
 	public function onBeforeCompileHead()
 	{
-
 		if (!$this->execute)
 		{
-
 			return;
 		}
 
@@ -79,7 +104,7 @@ class PlgSystemAghyphenopoly extends JPlugin
 			{
 				$language = new Joomla\Registry\Registry($language);
 
-				if ( $language->get('active', 0) 
+				if ($language->get('active', 0) 
 					&& ($lang = trim($language->get('lang', ''))) 
 					&& ($langtext = str_replace(' ', '', $language->get('langtext', ''))))
 				{
@@ -87,11 +112,8 @@ class PlgSystemAghyphenopoly extends JPlugin
 				}
 			}
 		}
-		$require = json_encode($require);
 
 		$fallbacklanguages = $this->params->get('fallbacklanguages', null);
-		$fallback = array();
-		$fallback['de-de'] = 'de';
 		
 		if (is_object($fallbacklanguages))
 		{
@@ -99,7 +121,26 @@ class PlgSystemAghyphenopoly extends JPlugin
 			{
 				$fallbacklanguage = new Joomla\Registry\Registry($fallbacklanguage);
 
-				if ( $fallbacklanguage->get('active', 0) 
+				if ($fallbacklanguage->get('active', 0) 
+					&& ($fallbacktext = str_replace(' ', '', $fallbacklanguage->get('fallbacktext', ''))) 
+					&& ($fallbackstring = str_replace(' ', '', $fallbacklanguage->get('fallbackstring', ''))))
+				{
+					$require[$fallbacktext] = $fallbackstring;
+				}
+			}
+		}
+		$require = json_encode($require);
+
+		$fallbacklanguages = $this->params->get('fallbacklanguages', null);
+		$fallback = array();
+
+		if (is_object($fallbacklanguages))
+		{
+			foreach ($fallbacklanguages as $fallbacklanguage)
+			{
+				$fallbacklanguage = new Joomla\Registry\Registry($fallbacklanguage);
+
+				if ($fallbacklanguage->get('active', 0) 
 					&& ($fallbacklang = trim($fallbacklanguage->get('fallbacklang', ''))) 
 					&& ($fallbacktext = str_replace(' ', '', $fallbacklanguage->get('fallbacktext', ''))))
 				{
@@ -111,19 +152,19 @@ class PlgSystemAghyphenopoly extends JPlugin
 
 		$selectors = $this->params->get('selectors', null);
 		$selectorsarray = array();
-		
+
 		if (is_object($selectors))
 		{
 			foreach ($selectors as $selector)
 			{
 				$selector = new Joomla\Registry\Registry($selector);
 
-				if ( $selector->get('active', 0) 
+				if ($selector->get('active', 0) 
 					&& ($selectorname = trim($selector->get('selectorname', ''))))
 				{
 					$selectoritemsarray = array();
 					$selectoritemsarray['compound'] = $selector->get('compound', "all");
-					$selectoritemsarray['hyphen'] = $selector->get('hyphen', "\u00AD");
+					$selectoritemsarray['hyphen'] = json_decode('"' . $selector->get('hyphen', "\u00AD") . '"');
 					$selectoritemsarray['minWordLength'] = $selector->get('minWordLength', 6);
 					$selectoritemsarray['leftmin'] = $selector->get('leftmin', 3);
 					$selectoritemsarray['rightmin'] = $selector->get('rightmin', 3);
@@ -182,7 +223,64 @@ class PlgSystemAghyphenopoly extends JPlugin
 		$js[] = '};';
 
 		$js = implode('', $js);
-		file_put_contents(JPATH_ROOT . '/media/plg_system_aghyphenopoly/hyphenopoly/' . 'aghyphenopoly.js', $js);
+		$oldjs = $this->params->get('oldjs', '');
+
+		if ($oldjs !== $js)
+		{
+			$this->params->set('oldjs', $js);
+
+			$db = $this->db;
+			$query = $db->getQuery(true)
+				->update($db->qn('#__extensions'))
+				->set($db->qn('params') . ' = ' . $db->q($this->params->toString('JSON')))
+				->where($db->qn('type') . ' = ' . $db->q('plugin'))
+				->where($db->qn('folder') . ' = ' . $db->q('system'))
+				->where($db->qn('element') . ' = ' . $db->q('aghyphenopoly'));
+
+			try
+			{
+				// Lock the tables to prevent multiple plugin executions causing a race condition
+				$db->lockTable('#__extensions');
+			}
+			catch (Exception $e)
+			{
+				// If we can't lock the tables it's too risky to continue execution
+				return;
+			}
+
+			try
+			{
+				// Update the plugin parameters
+				$result = $db->setQuery($query)->execute();
+
+				// Do I need this $this->clearCacheGroups(array('com_plugins'), array(0, 1));
+			}
+			catch (Exception $exc)
+			{
+				// If we failed to execite
+				$db->unlockTables();
+				$result = false;
+			}
+
+			try
+			{
+				// Unlock the tables after writing
+				$db->unlockTables();
+			}
+			catch (Exception $e)
+			{
+				// If we can't lock the tables assume we have somehow failed
+				$result = false;
+			}
+
+			// Abort on failure
+			if (!$result)
+			{
+				return;
+			}
+
+			file_put_contents(JPATH_ROOT . '/media/plg_system_aghyphenopoly/hyphenopoly/' . 'aghyphenopoly.js', $js);
+		}
 
 		$file = JUri::root(true) . '/media/plg_system_aghyphenopoly/hyphenopoly/' . 'aghyphenopoly.js';
 		JFactory::getDocument()->addScript($file);
@@ -190,15 +288,16 @@ class PlgSystemAghyphenopoly extends JPlugin
 		$file = JUri::root(true) . '/media/plg_system_aghyphenopoly/hyphenopoly/' . 'Hyphenopoly_Loader.js';
 		JFactory::getDocument()->addScript($file);
 
-		/*JFactory::getDocument()->addStyleDeclaration('	
-		body {
-			hyphens: auto;
-			-ms-hyphens: auto;
-			-moz-hyphens: auto;
-			-webkit-hyphens: auto;
-		     }'
-		);*/
+		/* TODO CSS automatisch hinzufügen JFactory::getDocument()->addStyleDeclaration('	
+		  body {
+		  hyphens: auto;
+		  -ms-hyphens: auto;
+		  -moz-hyphens: auto;
+		  -webkit-hyphens: auto;
+		  }'
+		  ); */
 
 		return true;
 	}
+
 }

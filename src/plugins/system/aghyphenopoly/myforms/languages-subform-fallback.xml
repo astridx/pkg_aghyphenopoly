@@ -22,6 +22,15 @@
         />
 
 	<field 
+            name="fallbackstring" 
+            type="text" 
+            default="" 
+            filter="string"
+            label="PLG_SYSTEM_AGHYPHENOPLY_LANGTEXT"
+            description="" 
+        />
+
+        <field 
             name="active" 
             type="list" 
             default="0"
