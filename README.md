@@ -6,7 +6,7 @@
 Please activate the plugin via `Extension | Plugins` before you use it. 
 If you do not find the plugin entry, you can search it via the search field.
 
-b1
+![b1](https://user-images.githubusercontent.com/9974686/51908730-e1319600-23ca-11e9-8e88-c5c0b324dd49.png)
 
 2. Path: By default Aghyphenopoly looks in the path 
 `/media/plg_system_aghyphenopoly/hyphenopoly/patterns/` for .hpb-files (patterns) and 
@@ -18,12 +18,12 @@ In this example you need to use '/joomla-cms/media/plg_system_aghyphenopoly/hyph
 for .hpb-files and `/joomla-cms/media/plg_system_aghyphenopoly/hyphenopoly/` for other resources. 
 For more informations please see https://github.com/mnater/Hyphenopoly/wiki/Global-Hyphenopoly-Object#paths .
 
-b2
+![b2](https://user-images.githubusercontent.com/9974686/51908729-e1319600-23ca-11e9-98c4-0398aa9fb9b9.png)
 
 3. Setup: The settings on the top apply to Aghyphenopoly in general. For more informations please see https://github.com/mnater/Hyphenopoly/wiki/Setup . 
 Many settings can be set for each set of elements that are matched by the given selector. For more informations please see https://github.com/mnater/Hyphenopoly/wiki/Setup#selector-based-settings .
 
-b3
+![b3](https://user-images.githubusercontent.com/9974686/51908728-e1319600-23ca-11e9-9079-d7a2545621bb.png)
 
 4. Language: The language (require) field must be an object of key-value-pairs, 
 where the keys are language codes and the values are a long word (>=12 characters) 
@@ -39,7 +39,7 @@ the special keyword `FORCEHYPHENOPOLY` can be used as value.
 Note: Disable CSS-hyphenation while using `FORCEHYPHENOPOLY`. 
 For more informations please see https://github.com/mnater/Hyphenopoly/wiki/Global-Hyphenopoly-Object#require and https://github.com/mnater/Hyphenopoly/wiki/Global-Hyphenopoly-Object#fallbacks .
 
-b4
+![b4](https://user-images.githubusercontent.com/9974686/51908727-e1319600-23ca-11e9-944c-5a66326429d2.png)
 
 5. Exceptions: This tab provides exceptions for hyphenation. 
 The exceptions object must contain language-codes as keys (or `global` for all languages, but global is not supportet with this plugin up to know). 
@@ -47,7 +47,7 @@ The values must be words separated by `,⎵` (comma, space), where a hyphen-minu
 the hyphenation points. If the word does not contain a hyphen, 
 it will not be hyphenated by `Hyphenopoly.js`. For more informations please see https://github.com/mnater/Hyphenopoly/wiki/Setup#exceptions .
 
-b5
+![b5](https://user-images.githubusercontent.com/9974686/51908725-e098ff80-23ca-11e9-8063-fbb73050baad.png)
 
 # FAQ
 ## What is hyphenation algorithm?
