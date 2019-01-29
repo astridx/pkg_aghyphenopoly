@@ -85,6 +85,8 @@ class PlgSystemAghyphenopoly extends JPlugin
 			return;
 		}
 
+		JLoader::register('PlgAghyphenopolyHelper', __DIR__ . '/helper.php');
+
 		$maindir = $this->params->get('maindir', '/media/plg_system_aghyphenopoly/hyphenopoly/');
 		$patterndir = $this->params->get('patterndir', '/media/plg_system_aghyphenopoly/hyphenopoly/patterns');
 
@@ -95,107 +97,13 @@ class PlgSystemAghyphenopoly extends JPlugin
 		$safeCopy = $this->params->get('safeCopy', true);
 		$timeout = $this->params->get('timeout', 1000);
 
-		$languages = $this->params->get('languages', null);
-		$require = array();
+		$require = PlgAghyphenopolyHelper::prepareLanguages($this->params->get('languages', null), $this->params->get('fallbacklanguages', null));
 
-		if (is_object($languages))
-		{
-			foreach ($languages as $language)
-			{
-				$language = new Joomla\Registry\Registry($language);
+		$fallback = PlgAghyphenopolyHelper::prepareFallback($this->params->get('fallbacklanguages', null));
 
-				if ($language->get('active', 0) 
-					&& ($lang = trim($language->get('lang', ''))) 
-					&& ($langtext = str_replace(' ', '', $language->get('langtext', ''))))
-				{
-					$require[$lang] = $langtext;
-				}
-			}
-		}
+		$selectors = PlgAghyphenopolyHelper::prepareSelectors($this->params->get('selectors', null));
 
-		$fallbacklanguages = $this->params->get('fallbacklanguages', null);
-		
-		if (is_object($fallbacklanguages))
-		{
-			foreach ($fallbacklanguages as $fallbacklanguage)
-			{
-				$fallbacklanguage = new Joomla\Registry\Registry($fallbacklanguage);
-
-				if ($fallbacklanguage->get('active', 0) 
-					&& ($fallbacktext = str_replace(' ', '', $fallbacklanguage->get('fallbacktext', ''))) 
-					&& ($fallbackstring = str_replace(' ', '', $fallbacklanguage->get('fallbackstring', ''))))
-				{
-					$require[$fallbacktext] = $fallbackstring;
-				}
-			}
-		}
-		$require = json_encode($require);
-
-		$fallbacklanguages = $this->params->get('fallbacklanguages', null);
-		$fallback = array();
-
-		if (is_object($fallbacklanguages))
-		{
-			foreach ($fallbacklanguages as $fallbacklanguage)
-			{
-				$fallbacklanguage = new Joomla\Registry\Registry($fallbacklanguage);
-
-				if ($fallbacklanguage->get('active', 0) 
-					&& ($fallbacklang = trim($fallbacklanguage->get('fallbacklang', ''))) 
-					&& ($fallbacktext = str_replace(' ', '', $fallbacklanguage->get('fallbacktext', ''))))
-				{
-					$fallback[$fallbacktext] = $fallbacklang;
-				}
-			}
-		}
-		$fallback = json_encode($fallback);
-
-		$selectors = $this->params->get('selectors', null);
-		$selectorsarray = array();
-
-		if (is_object($selectors))
-		{
-			foreach ($selectors as $selector)
-			{
-				$selector = new Joomla\Registry\Registry($selector);
-
-				if ($selector->get('active', 0) 
-					&& ($selectorname = trim($selector->get('selectorname', ''))))
-				{
-					$selectoritemsarray = array();
-					$selectoritemsarray['compound'] = $selector->get('compound', "all");
-					$selectoritemsarray['hyphen'] = json_decode('"' . $selector->get('hyphen', "\u00AD") . '"');
-					$selectoritemsarray['minWordLength'] = $selector->get('minWordLength', 6);
-					$selectoritemsarray['leftmin'] = $selector->get('leftmin', 3);
-					$selectoritemsarray['rightmin'] = $selector->get('rightmin', 3);
-					$selectoritemsarray['orphanControl'] = $selector->get('orphanControl', 1);
-
-					$selectorsarray[$selectorname] = $selectoritemsarray;
-				}
-			}
-		}
-		$selectorjson = json_encode($selectorsarray);
-
-		// Exceptions
-		$exceptions = $this->params->get('exceptions', null);
-		$exceptionsarray = array();
-
-		if (is_object($exceptions))
-		{
-			foreach ($exceptions as $exception)
-			{
-				$exception = new Joomla\Registry\Registry($exception);
-
-				if ($exception->get('active', 0) 
-					&& ($exceptionlang = trim($exception->get('exceptionlang', ''))) 
-					&& ($exceptiontext = $exception->get('exceptiontext', '')))
-				{
-					$exceptionsarray[$exceptionlang] = $exceptiontext;
-				}
-			}
-		}
-
-		$exceptionsjson = json_encode($exceptionsarray);
+		$exceptions = PlgAghyphenopolyHelper::prepareSelectors($this->params->get('exceptions', null));
 
 		$js[] = ';var Hyphenopoly = {';
 		$js[] = 'require: ';
@@ -215,16 +123,16 @@ class PlgSystemAghyphenopoly extends JPlugin
 		$js[] = 'safeCopy: ' . $safeCopy . ',';
 		$js[] = 'dontHyphenateClass: "' . $dontHyphenateClass . '",';
 		$js[] = 'exceptions: ';
-		$js[] = $exceptionsjson;
+		$js[] = $exceptions;
 		$js[] = ',';
 		$js[] = 'selectors: ';
-		$js[] = $selectorjson;
+		$js[] = $selectors;
 		$js[] = '}';
 		$js[] = '};';
 
 		$js = implode('', $js);
 		$oldjs = $this->params->get('oldjs', '');
-
+		
 		if ($oldjs !== $js)
 		{
 			$this->params->set('oldjs', $js);
@@ -287,15 +195,19 @@ class PlgSystemAghyphenopoly extends JPlugin
 
 		$file = JUri::root(true) . '/media/plg_system_aghyphenopoly/hyphenopoly/' . 'Hyphenopoly_Loader.js';
 		JFactory::getDocument()->addScript($file);
+		
+		if ($this->params->get('addCSS', 0))
+		{
 
-		/* TODO CSS automatisch hinzufügen JFactory::getDocument()->addStyleDeclaration('	
-		  body {
-		  hyphens: auto;
-		  -ms-hyphens: auto;
-		  -moz-hyphens: auto;
-		  -webkit-hyphens: auto;
-		  }'
-		  ); */
+			JFactory::getDocument()->addStyleDeclaration('	
+			  body {
+			  hyphens: auto;
+			  -ms-hyphens: auto;
+			  -moz-hyphens: auto;
+			  -webkit-hyphens: auto;
+			  }'
+			  );
+		}
 
 		return true;
 	}

@@ -24,6 +24,11 @@
             </fieldset>
             <fieldset name="path">
                 <field 
+                    name="pathspacer" 
+                    type="spacer" 
+                    label="PLG_AGHYPHENOPOLY_PATH_DESC" 
+                />
+                <field 
                     name="maindir" 
                     type="text"
                     size="120"
@@ -44,18 +49,10 @@
             </fieldset>
             <fieldset name="setup">
                 <field 
-                    name="selectors" 
-                    type="subform" 
-                    min="1" 
-                    max="100" 
-                    multiple="true"
-                    label="PLG_AGHYPHENOPOLY_LANGUAGES_SELECTORS_LABEL" 
-                    description=""
-                    formsource="plugins/system/aghyphenopoly/myforms/selectors-subform.xml"
-                    layout="joomla.form.field.subform.repeatable" 
-                    groupByFieldset="false"
-                    default='"html": { }'
-                />                
+                    name="setupspacer" 
+                    type="spacer" 
+                    label="PLG_AGHYPHENOPOLY_SETUP_DESC" 
+                />
 
                 <field 
                     name="dontHyphenateClass" 
@@ -104,13 +101,26 @@
                     type="filelist" 
                     directory="media/plg_system_aghyphenopoly/hyphenopoly/patterns/"
                     stripext="1"
-                    default="en-gb"
+                    default="de"
                     hide_default="1" 
                     filter="\.hpb$" 
                     multiple="false"
-                    label="AGHYPHENOPLY_LANG"
+                    label="PLG_SYSTEM_AGHYPHENOPLY_LANG"
                     description="" 
                 />
+                <field 
+                    name="selectors" 
+                    type="subform" 
+                    min="1" 
+                    max="100" 
+                    multiple="true"
+                    label="PLG_AGHYPHENOPOLY_LANGUAGES_SELECTORS_LABEL" 
+                    description=""
+                    formsource="plugins/system/aghyphenopoly/myforms/selectors-subform.xml"
+                    layout="joomla.form.field.subform.repeatable" 
+                    groupByFieldset="false"
+                    default='{"selectors0":{"selectorname":"body","compound":"all","hyphen":"\\u00AD","minWordLength":"6","leftmin":"3","rightmin":"3","orphanControl":"1","active":"1"}}'
+                />                
             </fieldset>
 
             <fieldset 
@@ -135,7 +145,7 @@
                     formsource="plugins/system/aghyphenopoly/myforms/languages-subform.xml"
                     layout="joomla.form.field.subform.repeatable-table" 
                     groupByFieldset="false"
-                    default='{"languages0":{"lang":"de","langtext":"Silbentrennungsalgorithmus","active":"1"},"languages1":{"lang":"en-gb","langtext":"hyphenationalgorithm","active":"0"},"languages2":{"lang":"fr","langtext":"Amortissements","active":"0"},"languages3":{"lang":"hy","langtext":"\u0540\u0561\u0575\u0565\u0580\u0565\u0576\u0576","active":"0"}}'
+                    default='{"languages0":{"lang":"de","langtext":"Silbentrennungsalgorithmus","active":"0"}}'
                 />
                 
                 <field 
@@ -149,7 +159,7 @@
                     formsource="plugins/system/aghyphenopoly/myforms/languages-subform-fallback.xml"
                     layout="joomla.form.field.subform.repeatable-table" 
                     groupByFieldset="false"
-                    default='{"de-de": "de"}'
+                    default='{"fallbacklanguages0":{"fallbacktext":"de-de","fallbacklang":"de","fallbackstring":"FORCEHYPHENOPOLY","active":"1"}}'
                 />                
             </fieldset>
 
@@ -175,9 +185,31 @@
                     formsource="plugins/system/aghyphenopoly/myforms/exceptions-subform.xml"
                     layout="joomla.form.field.subform.repeatable-table" 
                     groupByFieldset="false"
-                    default='{"de-de": "de"}'
+                    default='{"exceptions0":{"exceptionlang":"de","exceptiontext":"Astrid, Joomla, website","active":"1"}}'
                 />
                 
+            </fieldset>
+
+            <fieldset 
+                name="css" 
+                label="css">
+
+                <field 
+                    type="spacer" 
+                    name="css" 
+                    label="PLG_AGHYPHENOPOLY_CSS" 
+                />
+
+                <field 
+                    name="addCSS" 
+                    type="list" 
+                    default="0"
+                    label="PLG_SYSTEM_AGHYPHENOPLY_ADDCSS"
+                    description=""
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
 
             <fieldset 
