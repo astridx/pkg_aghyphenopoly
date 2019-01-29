@@ -1,8 +1,31 @@
 <?php
+/**
+ * @package     Joomla.Site
+ * @subpackage  pkg_aghyphenopoly
+ *
+ * @copyright   Copyright (C) 2005 - 2019 Astrid Günther, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later;
+ * @link        astrid-guenther.de
+ */
 defined('JPATH_BASE') or die;
 
+/**
+ * System Plugin Aghypenopoly Helper
+ *
+ * @since  0.0.1
+ */
 class PlgAghyphenopolyHelper
 {
+	/**
+	 * This event is triggered before the framework creates the Head section of the Document.
+	 *
+	 * @param   array  $languages          The language
+	 * @param   array  $fallbacklanguages  The fallback language
+	 * 
+	 * @return  string
+	 *
+	 * @since   0.0.1
+	 */
 	public static function prepareLanguages($languages, $fallbacklanguages)
 	{
 		$require = array();
@@ -39,6 +62,15 @@ class PlgAghyphenopolyHelper
 		return json_encode($require);
 	}
 
+	/**
+	 * This event is triggered before the framework creates the Head section of the Document.
+	 *
+	 * @param   array  $fallbacklanguages  The fallback language
+	 * 
+	 * @return  string
+	 *
+	 * @since   0.0.1
+	 */
 	public static function prepareFallback($fallbacklanguages)
 	{
 		$fallback = array();
@@ -61,6 +93,15 @@ class PlgAghyphenopolyHelper
 		return json_encode($fallback);
 	}
 
+	/**
+	 * This event is triggered before the framework creates the Head section of the Document.
+	 *
+	 * @param   array  $selectors  The selectors
+	 * 
+	 * @return  string
+	 *
+	 * @since   0.0.1
+	 */
 	public static function prepareSelectors($selectors)
 	{
 
@@ -91,6 +132,15 @@ class PlgAghyphenopolyHelper
 		return json_encode($selectorsarray);
 	}
 	
+	/**
+	 * This event is triggered before the framework creates the Head section of the Document.
+	 *
+	 * @param   array  $exceptions  The exceptions
+	 * 
+	 * @return  string
+	 *
+	 * @since   0.0.1
+	 */
 	public static function prepareExceptions($exceptions)
 	{
 
@@ -111,9 +161,9 @@ class PlgAghyphenopolyHelper
 					// I am not happy with this hack
 					if ($exceptionlang === "de")
 					{
-					    $exceptionsarray["de-de"] = $exceptiontext;
-					    $exceptionsarray["de-at"] = $exceptiontext;
-					    $exceptionsarray["de-ch"] = $exceptiontext;
+						$exceptionsarray["de-de"] = $exceptiontext;
+						$exceptionsarray["de-at"] = $exceptiontext;
+						$exceptionsarray["de-ch"] = $exceptiontext;
 					}
 				}
 			}

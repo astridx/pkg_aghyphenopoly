@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package     Joomla.Site
  * @subpackage  pkg_aghyphenopoly
@@ -8,6 +7,7 @@
  * @license     GNU General Public License version 2 or later;
  * @link        astrid-guenther.de
  */
+
 defined('_JEXEC') or die;
 
 /**
@@ -206,7 +206,7 @@ class PlgSystemAghyphenopoly extends JPlugin
 			  -moz-hyphens: auto;
 			  -webkit-hyphens: auto;
 			  }'
-			  );
+			);
 		}
 
 		return true;
