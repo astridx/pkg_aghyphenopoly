@@ -119,7 +119,7 @@ class PlgSystemAghyphenopoly extends JPlugin
 		$js[] = 'setup: {';
 		$js[] = 'defaultLanguage: "' . $defaultLanguage . '",';
 		$js[] = 'timeout: ' . $timeout . ',';
-		$js[] = 'normalize: ' . $normalize . ',';
+		//$js[] = 'normalize: ' . $normalize . ',';
 		$js[] = 'safeCopy: ' . $safeCopy . ',';
 		$js[] = 'dontHyphenateClass: "' . $dontHyphenateClass . '",';
 		$js[] = 'exceptions: ';
