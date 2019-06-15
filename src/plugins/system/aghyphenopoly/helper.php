@@ -119,10 +119,10 @@ class PlgAghyphenopolyHelper
 					$selectoritemsarray = array();
 					$selectoritemsarray['compound'] = $selector->get('compound', "all");
 					$selectoritemsarray['hyphen'] = json_decode('"' . $selector->get('hyphen', "\u00AD") . '"');
-					$selectoritemsarray['minWordLength'] = $selector->get('minWordLength', 6);
-					$selectoritemsarray['leftmin'] = $selector->get('leftmin', 3);
-					$selectoritemsarray['rightmin'] = $selector->get('rightmin', 3);
-					$selectoritemsarray['orphanControl'] = $selector->get('orphanControl', 1);
+					$selectoritemsarray['minWordLength'] = intval($selector->get('minWordLength', 6));
+					$selectoritemsarray['leftmin'] = intval($selector->get('leftmin', 3));
+					$selectoritemsarray['rightmin'] = intval($selector->get('rightmin', 3));
+					$selectoritemsarray['orphanControl'] = intval($selector->get('orphanControl', 1));
 
 					$selectorsarray[$selectorname] = $selectoritemsarray;
 				}
